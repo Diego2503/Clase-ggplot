@@ -1,0 +1,73 @@
+---
+title: "Delitos  cometidos en CR 2022"
+author: "Diego Camacho"
+format:
+  html: 
+    toc: true
+---
+
+# Introducción
+Este documento contiene un conjunto de gráficos 
+estadisticos de delitos cometidos en CR, los
+cuales están generados con base en [OIJ](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos).
+
+# Carga y muestra de los datos
+```{r}
+# label: carga-muestra-datos
+
+delitos_2022 <- read.csv("estadisticaspoliciales2022.csv")
+
+knitr::kable(
+  head(delitos_2022[, c("Delito", "Victima", "Fecha", "Edad", "Provincia")]), 
+  caption = "Muestra de datos de delito"
+)
+
+```
+
+# Gráficos de delitos por provinvia
+
+## Gráfico de barras verticlaes
+
+```{r}
+# label: grafico-delitos-provincias-verticales
+# code-fold: true
+
+tabla_delitos <- table(delitos_2022$Provincia)
+
+tabla_delitos_ordenada <- sort(tabla_delitos, decreasing = TRUE)
+
+barplot(
+  height = tabla_delitos_ordenada,
+  main = "Delitos cometidos por provincia en 2022",
+  sub = "Fuente OIJ",
+  col = "red",
+  las = 2,
+  cex.names = 0.5,
+  cex.axis = 0.5
+  )
+```
+
+
+## Gráfico de barras horizontales
+
+```{r}
+# label: grafico-delitos-provincias-horizontales
+# code-fold: true
+
+tabla_delitos <- table(delitos_2022$Provincia)
+
+tabla_delitos_ordenada <- sort(tabla_delitos, decreasing = TRUE)
+
+barplot(
+  height = tabla_delitos_ordenada,
+  main = "Delitos cometidos por provincia en 2022",
+  sub = "Fuente OIJ",
+  col = "red",
+  las = 2,
+  cex.names = 0.5,
+  cex.axis = 0.5,
+  horiz = TRUE
+  )
+```
+## Gráficos de cantidad de delitos por cantón
+
